@@ -21,7 +21,7 @@ $active_record = TRUE;
 ');
 		}
 		fclose($handler);
-		echo "Installed \n";
+		echo "To finish the installation please visit \"main/finish\" \n";
 	}
 	else
 	{
