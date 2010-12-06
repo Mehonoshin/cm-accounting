@@ -1,3 +1,35 @@
+<<<<<<< .mine
+#!/usr/bin/php
+<?php
+	define('BASEPATH', '.');
+	require_once('application/config/database.php');
+	if ($argc == 5)
+	{
+		($handler = fopen('application/config/database.php', 'w+')) or die ("Application is not availible");
+		fputs($handler, "<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+");
+		fputs($handler, '$active_group = "default";
+$active_record = TRUE;
+');
+		$db['default']['hostname'] = $argv[1];
+		$db['default']['username'] = $argv[2];
+		$db['default']['password'] = $argv[3];
+		$db['default']['database'] = $argv[4];
+		$keys = array_keys($db['default']);
+		foreach($keys as $key)
+		{
+			fputs($handler, '$db[\'default\'][\''.$key.'\'] = "'.$db['default'][$key].'";
+');
+		}
+		fclose($handler);
+		echo "Installed \n";
+	}
+	else
+	{
+		echo "Command usage is: install <dbhost> <dbusername> <dbpassword> <dbname> \n";
+	}
+?>
+=======
 #!/usr/bin/php
 <?php
 	define('BASEPATH', '.');
@@ -28,3 +60,4 @@ $active_record = TRUE;
 		echo "Command usage is: install <dbhost> <dbusername> <dbpassword> <dbname> \n";
 	}
 ?>
+>>>>>>> .r9

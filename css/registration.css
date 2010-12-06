@@ -1,0 +1,23 @@
+body
+{
+    background-image: url('http://localhost/cm-accounting/images/texture.jpg');
+    font-family: "Times New Roman";
+}
+
+#div_registration
+{
+    position: relative;
+    margin-top: 10%;
+}
+
+#form_registration
+{
+    background-image: url('http://localhost/cm-accounting/images/texture2.gif');
+    width: 250px;
+    height: 270px;
+}
+
+#label_error
+{
+    color: red;
+}
