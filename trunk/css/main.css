@@ -1,0 +1,116 @@
+body
+{
+    background-image: url('http://localhost/cm-accounting/images/texture.jpg');
+    font-family: "Times New Roman";
+}
+
+#table_main
+{
+    background-image: url('http://localhost/cm-accounting/images/texture2.gif');
+}
+
+#label_login
+{
+    color: green;
+}
+
+#label_login:hover
+{
+    color: lightgreen;
+}
+
+#div_registration_block
+{
+    position: relative;
+    top: 100px;
+}
+
+#a_escape
+{
+    text-decoration: none;
+    color: darkblue;
+}
+
+#a_escape:hover
+{
+    text-decoration: none;
+    color: blue;
+}
+
+#a_registration
+{
+    text-decoration: none;
+    color: darkblue;
+}
+
+#a_registration:hover
+{
+    text-decoration: none;
+    color: blue;
+}
+
+#a_incomes
+{
+    color: rgb(50,0,50);
+    text-decoration: none;
+}
+
+#a_outcomes
+{
+    color: rgb(50,0,50);
+    text-decoration: none;
+}
+
+#a_periodic_incomes
+{
+    color: rgb(50,0,50);
+    text-decoration: none;
+}
+
+#a_periodic_outcomes
+{
+    color: rgb(50,0,50);
+    text-decoration: none;
+}
+
+#a_reports
+{
+    color: rgb(50,0,50);
+    text-decoration: none;
+}
+
+#a_incomes:hover
+{
+    color: blue;
+}
+
+#a_outcomes:hover
+{
+    color: red;
+}
+
+#a_periodic_incomes:hover
+{
+    color: blue;
+}
+
+#a_periodic_outcomes:hover
+{
+    color: red;
+}
+
+#a_reports:hover
+{
+    color: green;
+}
+
+#label_hello
+{
+    font-size: 32px;
+}
+
+#table_data
+{
+    border-color: #cec0c0;
+    border-collapse: collapse;
+}

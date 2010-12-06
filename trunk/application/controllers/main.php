@@ -1,8 +1,40 @@
 <?php
+    /**
+    *@property CI_Loader           $load
+    *@property CI_Form_validation  $form_validation
+    *@property CI_Input            $input
+    *@property CI_Email            $email
+    *@property CI_DB_active_record $db
+    *@property CI_DB_forge         $dbforge
+    *@property CI_Table            $table
+    *@property CI_Session          $session
+    *@property CI_FTP              $ftp
+    **/
+	class Main extends Controller
+	{
 
-    class Main extends Controller
-    {
+		function Main()
+		{
+			parent::Controller();
+		}
+	
+		function index()
+		{   
+                    $data['page'] = 'main';
+                    $data['login'] = $this->session->userdata('login');
+                    if ($data['login'] == '')
+                    {
+                        $data['login'] = 'гость';
+                        $data['authorized'] = false;
+                    }
+                    else $data['authorized'] = true;
+                    $this->load->view('main_tpl',$data);
+		}
+	}
 
+<<<<<<< .mine
+?>
+=======
         function Main()
         {
             parent::Controller();
@@ -113,4 +145,4 @@
 		}
 		
     }
-?>
+?>>>>>>>> .r9
