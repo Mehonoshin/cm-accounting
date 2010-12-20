@@ -124,15 +124,15 @@
                     $sort_address = 'http://localhost/cm-accounting/index/pages/reports';
                 break;    
             }
-                echo "
-                 <form action='$sort_address' method='post'>
-                    <input type='text' value='$date1' name='date1'>
-                    <input type='text' value='$date2' name='date2'>
-                    <input type='submit' style='color: green;' value='Фильтровать'>
-                 </form>
-               ";
-                if ($page != 'reports')
-                {
+            if ($page != 'reports')
+            {
+                    echo "
+                     <form action='$sort_address' method='post'>
+                        <input type='text' value='$date1' name='date1'>
+                        <input type='text' value='$date2' name='date2'>
+                        <input type='submit' style='color: green;' value='Фильтровать'>
+                     </form>
+                    ";
                     echo '<table border="1" id="table_data">';
                     if (count($array_data) > 0)
                     {
@@ -159,17 +159,48 @@
                     echo '</table>';
                 } else
                 {
-                    echo '
-
-
-
-
-                    ';
+                    echo "
+                        <form action='$sort_address' method='post'>
+                            <input type='text' value='$date1' name='date1'>
+                            <input type='text' value='$date2' name='date2'><br><br>
+                            <input type='radio' checked='checked' value='table' name='variant'> Таблица<br>
+                            <input type='radio' value='graphic' name='variant'> График<br>
+                            <input type='checkbox' name='income'> Доходы<br>
+                            <input type='checkbox' name='outcome'> Расходы<br>
+                            <input type='checkbox' name='periodic_income'> Периодические Доходы<br>
+                            <input type='checkbox' name='periodic_outcome'> Периодические Расходы<br><br>
+                            <input type='submit' style='color: green;' value='построить отчет'>
+                            <input type='hidden' name='report' value='true'>
+                        </form>
+                    ";
+                    if (count($array_data) > 0)
+                    {
+                        echo '<table border="1" id="table_data">';
+                        echo '<tr>';
+                        foreach($array_data[0] as $caption => $value)
+                        {
+                            if ($caption != 'id') echo "<td>$caption</td>";
+                        }
+                        echo '</tr>';
+                        foreach($array_data as $array)
+                        {
+                            echo '<tr>';
+                            $id;
+                            foreach ($array as $caption => $value)
+                            {
+                                if ($caption != 'id') echo "<td> $value </td>";
+                                else $id = $value;
+                            }
+                            echo '</tr>';
+                        }
+                        echo '</table>';
+                    }
+                    if ($error != '') echo "<label style='color: red;'>$error</label>";
                 }
             
         }
     ?>
-
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </td></tr>
     <tr><td height="20"><a  id="a_incomes" href="http://localhost/cm-accounting/index/pages/incomes"> Доходы </a></td></tr>
     <tr><td height="20"><a  id="a_outcomes" href="http://localhost/cm-accounting/index/pages/outcomes"> Расходы </a></td></tr>
