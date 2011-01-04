@@ -1,4 +1,9 @@
 <?php
+/**
+ * Контроллер страниц
+ * @package Controllers
+ * @author Chaos
+ */
     /**
     *@property CI_Loader           $load
     *@property CI_Form_validation  $form_validation
@@ -12,11 +17,17 @@
     **/
 	class Pages extends Controller
 	{
-		function Pages()
+		/**
+                 * конструктор
+                 */
+                function Pages()
 		{
 			parent::Controller();
 		}
 
+                /**
+                 * Генерирует страницу доходов
+                 */
 		function incomes()
 		{						
                     $date1 = $this->input->post('date1');
@@ -48,6 +59,9 @@
                     $this->load->view('main_tpl',$data);
 		}
 
+                /**
+                 * Вставка дохода
+                 */
                 function insert_income()
                 {
                     $date = $this->input->post('date');
@@ -60,6 +74,10 @@
                     redirect("http://localhost/cm-accounting/index/pages/incomes");
                 }
 
+                /**
+                 * Удаляет дохода
+                 * @param integer $id
+                 */
                 function delete_income($id)
                 {
                     $this->load->model('acc_model');
@@ -67,6 +85,9 @@
                     redirect("http://localhost/cm-accounting/index/pages/incomes");
                 }
 
+                /**
+                 * Генерирует страницу расходов
+                 */
 		function outcomes()
 		{
                     $date1 = $this->input->post('date1');
@@ -99,6 +120,9 @@
                     $this->load->view('main_tpl',$data);
 		}
 
+                /*
+                 * вставляет расход
+                 */
                 function insert_outcome()
                 {
                     $date = $this->input->post('date');
@@ -111,6 +135,10 @@
                     redirect("http://localhost/cm-accounting/index/pages/outcomes");
                 }
 
+                /**
+                 *удаляет расход
+                 * @param integer $id
+                 */
                 function delete_outcome($id)
                 {
                     $this->load->model('acc_model');
@@ -118,6 +146,9 @@
                     redirect("http://localhost/cm-accounting/index/pages/outcomes");
                 }
 
+                /**
+                 * Генерирует страницу периодических доходов
+                 */
 		function periodic_incomes()
 		{
                     $date1 = $this->input->post('date1');
@@ -149,6 +180,9 @@
                     $this->load->view('main_tpl',$data);
 		}
 
+                /**
+                 * вставляет периодический доход
+                 */
                 function insert_periodic_income()
                 {
                     $date = $this->input->post('date');
@@ -161,6 +195,10 @@
                     redirect("http://localhost/cm-accounting/index/pages/periodic_incomes");
                 }
 
+                /**
+                 * удаляет периодический доход
+                 * @param integer $id
+                 */
                 function delete_periodic_income($id)
                 {
                     $this->load->model('acc_model');
@@ -168,6 +206,9 @@
                     redirect("http://localhost/cm-accounting/index/pages/periodic_incomes");
                 }
 
+                /**
+                 * Генерирует страницу периодических расходов
+                 */
 		function periodic_outcomes()
 		{
                     $date1 = $this->input->post('date1');
@@ -199,6 +240,9 @@
                     $this->load->view('main_tpl',$data);
 		}
 
+                /**
+                 * вставляет периодический расход
+                 */
                 function insert_periodic_outcome()
                 {
                     $date = $this->input->post('date');
@@ -211,6 +255,10 @@
                     redirect("http://localhost/cm-accounting/index/pages/periodic_outcomes");
                 }
 
+                /**
+                 * удаляет периодический расход
+                 * @param integer $id
+                 */
                 function delete_periodic_outcome($id)
                 {
                     $this->load->model('acc_model');
@@ -218,6 +266,9 @@
                     redirect("http://localhost/cm-accounting/index/pages/periodic_outcomes");
                 }
 
+                /**
+                 * Генерирует страницу отчетов
+                 */
                 function reports()
                 {
                     $date1 = $this->input->post('date1');

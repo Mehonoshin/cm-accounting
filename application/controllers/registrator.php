@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Контроллер регистрации
+ * @package controllers
+ * @author Chaos
+ */
     /**
     *@property CI_Loader           $load
     *@property CI_Form_validation  $form_validation
@@ -14,17 +18,29 @@
 
     class Registrator extends Controller
     {
+        /**
+         * конструктор
+         */
         function Registration()
         {
             parent::Controller();
         }
-
+        /**
+         * генерирует страницу регистрации
+         */
         function index()
         {
             $data['error'] = '';
             $this->load->view('registration_tpl',$data);
         }
-
+        /**
+         * проверка данных на корректность
+         * @param string $login
+         * @param string $password
+         * @param string $password_repeat
+         * @param string $email
+         * @return error
+         */
         function test($login, $password, $password_repeat, $email)
         {
             if ($login == '') return 'Логин не может быть пустым';
@@ -35,6 +51,9 @@
             return '';
         }
 
+        /**
+         * регистрирует пользователя
+         */
         function registrate()
         {
             $login = $this->input->post('login');
@@ -56,6 +75,9 @@
             }
         }
 
+        /**
+         * авторизует пользователя
+         */
         function enter()
         {
             $login = $this->input->post('login');
@@ -74,7 +96,10 @@
             }
             redirect('http://localhost/cm-accounting/');
         }
-
+        
+        /**
+         * деавторизует пользователя
+         */
         function escape()
         {
             $this->session->sess_destroy();

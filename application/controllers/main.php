@@ -1,4 +1,9 @@
 <?php
+/**
+ * Главный контроллер
+ * @package controllers
+ * @author Chaos, Mexx
+ */
     /**
     *@property CI_Loader           $load
     *@property CI_Form_validation  $form_validation
@@ -12,12 +17,17 @@
     **/
 	class Main extends Controller
 	{
-
+                /**
+                 * конструктор
+                 */
 		function Main()
 		{
 			parent::Controller();
 		}
-	
+
+                /**
+                 * главная страница
+                 */
 		function index()
 		{   
                     $data['page'] = 'main';
@@ -31,6 +41,9 @@
                     $this->load->view('main_tpl',$data);
 		}
 
+                /**
+                 * завершение установки приложения
+                 */
                 function finish()
 		{
 			if ($this->db->table_exists('Categories') &&
