@@ -31,7 +31,7 @@
 		}
 
                 /**
-                 * Получает список доходов пользователя по логину и датам периода
+                 * Получает список доходов пользователя
                  * @param string $login
                  * @param string $date1
                  * @param string $date2
@@ -52,10 +52,12 @@
 
                 /**
                  * Добавляет доход пользователя в базу
-                 * @param string login
-                 * @param string date
-                 * @param string name
-                 * @param
+                 * @param string $login
+                 * @param string $date
+                 * @param string $name
+                 * @param string $category
+                 * @param string $summary
+                 * @param string $information
                  */
                 function add_income_data($login, $date, $name, $category, $summary, $information)
                 {
@@ -69,11 +71,23 @@
                     }
                 }
 
+                /**
+                 * Удаляет доход из базы
+                 * @param string $login
+                 * @param string $id
+                 */
                 function del_income_data($login, $id)
                 {
                         $this->db->query("delete from Incomes where id = $id");
                 }
 
+                 /**
+                 * Получает список расходов
+                 * @param string $login
+                 * @param string $date1
+                 * @param string $date2
+                 * @return array
+                 */
 		function get_outcome_data($login, $date1, $date2)
 		{
                     if (($date1 != '') && ($date2 != ''))
@@ -87,6 +101,15 @@
                     }
 		}
 
+                /**
+                 * Добавляет расход пользователя в базу
+                 * @param string $login
+                 * @param string $date
+                 * @param string $name
+                 * @param string $category
+                 * @param string $summary
+                 * @param string $information
+                 */
                 function add_outcome_data($login, $date, $name, $category, $summary, $information)
                 {
 
@@ -99,11 +122,23 @@
                     }
                 }
 
+                /**
+                 * Удаляет доход из базы
+                 * @param string $login
+                 * @param string $id
+                 */
                 function del_outcome_data($login, $id)
                 {
                         $this->db->query("delete from Outcomes where id = $id");
                 }
 
+                 /**
+                 * Получает список периодических доходов пользователя
+                 * @param string $login
+                 * @param string $date1
+                 * @param string $date2
+                 * @return array
+                 */
 		function get_periodic_income_data($login, $date1, $date2)
 		{
 			if (($date1 != '') && ($date2 != ''))
@@ -117,6 +152,15 @@
                         }
 		}
 
+                /**
+                 * Добавляет периодический доход пользователя в базу
+                 * @param string $login
+                 * @param string $date
+                 * @param string $name
+                 * @param string $summary
+                 * @param string $period
+                 * @param string $term
+                 */
                 function add_periodic_income_data($login, $date, $name, $summary, $period, $term)
                 {
 
@@ -129,11 +173,23 @@
                     }
                 }
 
+                /**
+                 * Удаляет периодический доход из базы
+                 * @param string $login
+                 * @param string $id
+                */
                 function del_periodic_income_data($login, $id)
                 {
                         $this->db->query("delete from Periodic_incomes where id = $id");
                 }
 
+                /**
+                 * Получает список периодических расходов пользователя
+                 * @param string $login
+                 * @param string $date1
+                 * @param string $date2
+                 * @return array
+                 */
 		function get_periodic_outcome_data($login, $date1, $date2)
 		{
 			
@@ -148,6 +204,15 @@
                         }
 		}
 
+                /**
+                 * Добавляет периодический расход пользователя в базу
+                 * @param string $login
+                 * @param string $date
+                 * @param string $name
+                 * @param string $summary
+                 * @param string $period
+                 * @param string $term
+                 */
                 function add_periodic_outcome_data($login, $date, $name, $summary, $period, $term)
                 {
 
@@ -160,16 +225,31 @@
                     }
                 }
 
+                /**
+                 * Удаляет периодический расход из базы
+                 * @param string $login
+                 * @param string $id
+                 */
                 function del_periodic_outcome_data($login, $id)
                 {
                         $this->db->query("delete from Periodic_outcomes where id = $id");
                 }
+
+                /**
+                 * получает список категорий
+                 * @return array
+                 */
                 function get_categories()
                 {
                     $query = $this->db->query('select name from Categories');
                     return $query->result();
                 }
 
+                /**
+                 * получает доходы для отчетов
+                 * @param string $date1
+                 * @param string $date2
+                 */
                 function rep_get_income_data($date1, $date2)
                 {
                     if (($date1 != '') && ($date2 != ''))
@@ -183,6 +263,11 @@
                     }
                 }
 
+                /**
+                 * получает расходы для отчетов
+                 * @param string $date1
+                 * @param string $date2
+                 */
                 function rep_get_outcome_data($date1, $date2)
                 {
                     if (($date1 != '') && ($date2 != ''))
@@ -196,17 +281,33 @@
                     }
                 }
 
+                /**
+                 * получает периодические доходы для отчетов
+                 * @param string $date1
+                 * @param string $date2
+                 */
                 function rep_get_per_income_data($date)
                 {
                     $query = $this->db->query("select date, name, summary, period, term from Periodic_incomes where date <= '$date'");
                     return $query->result();
                 }
 
+                /**
+                 * получает периодические расходы для отчетов
+                 * @param string $date1
+                 * @param string $date2
+                 */
                 function rep_get_per_outcome_data($date)
                 {
                     $query = $this->db->query("select date, name, summary, period, term from Periodic_outcomes where date <= '$date'");
                     return $query->result();
                 }
+
+                /**
+                 * cчитает баланс
+                 * @param array $array
+                 * @return array
+                 */
                 function sum($array)
                 {
                     $sum = 0;
@@ -223,9 +324,13 @@
                     $array[$c]['name'] = '';
                     $array[$c]['summary'] = $sum;
                     return $array;
-
-
                 }
+
+                /**
+                 * сортирует по дате
+                 * @param array $array
+                 * @return array
+                 */
                 function sort($array)
                 {
                     for($i = 0; $i < count($array); $i++)
@@ -252,6 +357,13 @@
                     return $array;
                 }
 
+                /**
+                 * совмещает отчеты
+                 * @param array $param
+                 * @param string $date1
+                 * @param string $date2
+                 * @return array
+                 */
                 function combine($param, $date1, $date2)
                 {
                     $result = array();
@@ -314,6 +426,13 @@
                     return $res;
                 }
 
+                /**
+                 *
+                 * @param array $array
+                 * @param string $date1
+                 * @param string $date2
+                 * @return array
+                 */
                 function perform_periodic($array, $date1, $date2)
                 {
                     $result = array();
@@ -384,6 +503,12 @@
                     return $result;
                 }
 
+                /**
+                 * сравнивает даты
+                 * @param string $date1
+                 * @param string $date2
+                 * @return 1-,1
+                 */
                 function date_cmp($date1, $date2)
                 {
                      $array1 = str_getcsv($date1, '-');
@@ -397,7 +522,12 @@
                      return  1;
                 }
 
-
+                /**
+                 * добавляет дни к дате
+                 * @param string $date
+                 * @param integer $value
+                 * @return string
+                 */
                 function date_add($date, $value)
                 {
                     $array = str_getcsv($date, '-');
@@ -426,6 +556,12 @@
                     return $year.'-'.$month.'-'.$day;
                 }
 
+                /**
+                 * получает количество дней в месяце
+                 * @param integer $year
+                 * @param integer $month
+                 * @return integer
+                 */
                 function day_month($year, $month)
                 {
              
