@@ -3,7 +3,21 @@ body
     background-image: url('http://localhost/cm-accounting/images/texture.jpg');
     font-family: "Times New Roman";
 }
-
+table {
+	border-collapse:collapse;
+}
+input {
+	color: gray;
+}
+table#table_data {
+	border: 1px solid #000000;
+	padding: 2px;
+	margin: 10px;
+}
+.table-Head {	
+	background-color:#B34A00;
+	color:white;
+}
 #table_main
 {
     background-image: url('http://localhost/cm-accounting/images/texture2.gif');
