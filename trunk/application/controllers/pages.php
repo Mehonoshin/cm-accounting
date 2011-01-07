@@ -31,7 +31,7 @@
                     } else
                     {
                         $data['date1'] = 'Дата Начала';
-                        $data['date2'] = 'Дата Конца';
+                        $data['date2'] = date("Y-m-d");
 
                     }
                     if ($data['login'] == '')
@@ -91,7 +91,7 @@
                     } else
                     {
                         $data['date1'] = 'Дата Начала';
-                        $data['date2'] = 'Дата Конца';
+                        $data['date2'] = date("Y-m-d");
 
                     }
 
@@ -152,7 +152,7 @@
                     } else
                     {
                         $data['date1'] = 'Дата Начала';
-                        $data['date2'] = 'Дата Конца';
+                        $data['date2'] = date("Y-m-d");
 
                     }
                     if ($data['login'] == '')
@@ -212,7 +212,7 @@
                     } else
                     {
                         $data['date1'] = 'Дата Начала';
-                        $data['date2'] = 'Дата Конца';
+                        $data['date2'] = date("Y-m-d");
 
                     }
                     if ($data['login'] == '')
@@ -275,7 +275,7 @@
 	                    } else
 	                    {
 	                        $data['date1'] = 'Дата Начала';
-	                        $data['date2'] = 'Дата Конца';
+	                        $data['date2'] = date("Y-m-d");
 
 	                    }
 	                    if ($data['login'] == '')

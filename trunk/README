@@ -1,3 +1,10 @@
-DOnt forget to change rewrite rules in .htaccess file!
-Import SQL dump in your mysql
-Change username and pass to access Database server
+Don't forget to change rewrite rules in .htaccess file!
+
+
+########################
+# System requirements: #
+########################
+Apache >= 2
+PHP Cli >= 5.2
+system() execution avaliblity
+MySQL >= 5.1

@@ -19,7 +19,7 @@
                  * главная страница
                  */
 		function index()
-		{   
+		{			
                     $data['page'] = 'main';
                     $data['login'] = $this->session->userdata('login');
                     if ($data['login'] == '')

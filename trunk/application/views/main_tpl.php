@@ -3,7 +3,8 @@
     <link rel = "stylesheet" type = "text/css" href = "http://<?=base_url()?>/css/main.css">
     <link rel="stylesheet" href="http://<?=base_url()?>/css/jquery.datepick.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="http://<?=base_url()?>/js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="http://<?=base_url()?>/js/jquery.datepick.js"></script>>	
+	<script type="text/javascript" src="http://<?=base_url()?>/js/jquery.datepick.js"></script>
+	<script type="text/javascript" src="http://<?=base_url()?>/js/use.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('.date').datepick({dateFormat: 'yyyy-mm-dd'});
@@ -206,12 +207,12 @@
                         <form action='$sort_address' method='post'>
                             <input class=\"date\" type='text' value='$date1' name='date1'>
                             <input class=\"date\" type='text' value='$date2' name='date2'><br><br>
-                            <input type='radio' checked='checked' value='table' name='variant'> Таблица<br>
-                            <input type='radio' value='graphic' name='variant'> График<br>
-                            <input type='checkbox' name='income'> Доходы<br>
-                            <input type='checkbox' name='outcome'> Расходы<br>
-                            <input type='checkbox' name='periodic_income'> Периодические Доходы<br>
-                            <input type='checkbox' name='periodic_outcome'> Периодические Расходы<br><br>
+                            <input type='radio' checked='checked' value='table' name='variant' id='table-report'> Таблица<br>
+                            <input type='radio' value='graphic' name='variant' id='graph-report'> График<br>
+                            <input type='checkbox' name='income' class='report-check'> Доходы<br>
+                            <input type='checkbox' name='outcome' class='report-check'> Расходы<br>
+                            <input type='checkbox' name='periodic_income' class='report-check'> Периодические Доходы<br>
+                            <input type='checkbox' name='periodic_outcome' class='report-check'> Периодические Расходы<br><br>
                             <input type='submit' style='color: green;' value='построить отчет'>
                             <input type='hidden' name='report' value='true'>
                         </form>
@@ -219,19 +220,28 @@
                     if (count($array_data) > 0)
                     {
                         echo '<table border="1" id="table_data">';
-                        echo '<tr>';
-                        foreach($array_data[0] as $caption => $value)
-                        {
-                            if ($caption != 'id') echo "<td>$caption</td>";
-                        }
-                        echo '</tr>';
+                        echo '<tr class="table-Head">
+							<td>Тип</td>
+							<td>Дата</td>
+							<td>Название</td>
+							<td>Сумма</td>
+						</tr>';
                         foreach($array_data as $array)
                         {
                             echo '<tr>';
                             $id;
+							if (($array['type'] == 'доход') || ($array['type'] == 'периодический доход')) 
+							{ 
+								$class = "green"; 
+							} 
+							else 
+							{ 
+								$class = "red"; 
+							}
+							
                             foreach ($array as $caption => $value)
-                            {
-                                if ($caption != 'id') echo "<td> $value </td>";
+                            { 
+                                if ($caption != 'id') echo "<td class='".$class."'> $value </td>";
                                 else $id = $value;
                             }
                             echo '</tr>';

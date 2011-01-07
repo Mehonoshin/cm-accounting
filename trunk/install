@@ -1,9 +1,24 @@
-<<<<<<< .mine
 #!/usr/bin/php
 <?php
 	define('BASEPATH', '.');
+	
 	require_once('application/config/database.php');
-	if ($argc == 5)
+	require_once('application/libraries/ArgParser.php');	
+	
+	$parser = new ArgParser($argv);
+	$dbhost = $parser->getArgByName('--dbhost');
+	$dbuser = $parser->getArgByName('--dbuser');
+	$dbpass = $parser->getArgByName('--dbpass');
+	$dbname = $parser->getArgByName('--dbname');
+	$mysql_bin_path = $parser->getArgByName('--mysql-path');
+	$migration = $parser->getArgByName('--migration');
+	
+	if ($migration == '')
+	{
+		$migration = 'clear';
+	}
+	
+	if (($dbhost != '') && ($dbuser != '') && ($dbpass != '') && ($dbname != ''))
 	{
 		($handler = fopen('application/config/database.php', 'w+')) or die ("Application is not availible");
 		fputs($handler, "<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -11,10 +26,12 @@
 		fputs($handler, '$active_group = "default";
 $active_record = TRUE;
 ');
-		$db['default']['hostname'] = $argv[1];
-		$db['default']['username'] = $argv[2];
-		$db['default']['password'] = $argv[3];
-		$db['default']['database'] = $argv[4];
+		
+		$db['default']['hostname'] = $dbhost;
+		$db['default']['username'] = $dbuser;
+		$db['default']['password'] = $dbpass;
+		$db['default']['database'] = $dbname;
+		
 		$keys = array_keys($db['default']);
 		foreach($keys as $key)
 		{
@@ -22,42 +39,19 @@ $active_record = TRUE;
 ');
 		}
 		fclose($handler);
+		
+		echo "To confirm MySQL migration, ";
+		if ($mysql_bin_path == '')
+		{
+			$mysql_bin_path = 'mysql';
+		}
+		system($mysql_bin_path.' -u '.$dbuser.' -p '.$dbname.' < sql/'.$migration.'.sql');
+		
 		echo "Installed \n";
 	}
 	else
 	{
-		echo "Command usage is: install <dbhost> <dbusername> <dbpassword> <dbname> \n";
+		echo "Command usage is: install --dbhost <dbhost> --dbuser <dbusername> --dbpass <dbpassword> --dbname <dbname> 
+		[--mysql-path <path_to_mysql_bin>] [--migration <migration>] \n";
 	}
 ?>
-=======
-#!/usr/bin/php
-<?php
-	define('BASEPATH', '.');
-	require_once('application/config/database.php');
-	if ($argc == 5)
-	{
-		($handler = fopen('application/config/database.php', 'w+')) or die ("Application is not availible");
-		fputs($handler, "<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-");
-		fputs($handler, '$active_group = "default";
-$active_record = TRUE;
-');
-		$db['default']['hostname'] = $argv[1];
-		$db['default']['username'] = $argv[2];
-		$db['default']['password'] = $argv[3];
-		$db['default']['database'] = $argv[4];
-		$keys = array_keys($db['default']);
-		foreach($keys as $key)
-		{
-			fputs($handler, '$db[\'default\'][\''.$key.'\'] = "'.$db['default'][$key].'";
-');
-		}
-		fclose($handler);
-		echo "To finish the installation please visit \"main/finish\" \n";
-	}
-	else
-	{
-		echo "Command usage is: install <dbhost> <dbusername> <dbpassword> <dbname> \n";
-	}
-?>
->>>>>>> .r9
