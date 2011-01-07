@@ -2,7 +2,7 @@
 /**
  * Контроллер страниц
  * @package Controllers
- * @author Chaos
+ * @author Chaos, Mehonoshin Stanislav
  */
 
 	class Pages extends Controller
@@ -10,7 +10,7 @@
 		/**
                  * конструктор
                  */
-                function Pages()
+        function Pages()
 		{
 			parent::Controller();
 		}
@@ -321,155 +321,29 @@
 	                    }
 						// Get data
 						
-						$this->load->model('graphic_reports_model');
+						$this->load->model('graphic_reports_model');	
+						$this->load->library('statistics');
 						
 						// Доходы
-						$incomes = array();
 						$objects = $this->graphic_reports_model->getIncomes($data['login']);
-						foreach($objects as $obj)
-						{
-							$tmp = array();
-							$tmp[] = $obj->category;
-							$tmp[] = $obj->summary;
-							$incomes[] = $tmp;
-						}
-						// Самописный Distinct по атрибуту Category
-						for ($i = 0; $i < count($incomes); $i++)
-						{
-							$num = 0;
-							for ($j = 0; $j < count($incomes); $j++)
-							{
-								if (@$incomes[$i][0] == @$incomes[$j][0])
-								{
-									$num++;
-									if ($num > 1)
-									{
-										$incomes[$i][1] += $incomes[$j][1];
-										unset($incomes[$j]);
-									}
-								}
-							}
-						}
-						// Получаем проценты
-						$sum = 0;
-						foreach ($incomes as $cat)
-						{
-							$sum += $cat[1];
-						}
-						for ($i = 0; $i < count($incomes); $i++)
-						{
-							@$incomes[$i][1] = round((@$incomes[$i][1] / $sum) * 100, 1);
-						}
-						// Генерируем строку
-						$data['incomes'] = '[';						
-						foreach ($incomes as $cat)
-						{
-							@$data['incomes'] .= "['".$cat[0]."', ".$cat[1]."],";
-						}
-						$data['incomes'] .= ']';						
-						
-						
+						$data['incomes'] = $this->statistics->getPercentage($objects);
 						
 						//  Расходы
-						$outcomes = array();
 						$objects = $this->graphic_reports_model->getOutcomes($data['login']);
-						foreach($objects as $obj)
-						{
-							$tmp = array();
-							$tmp[] = $obj->category;
-							$tmp[] = $obj->summary;
-							$outcomes[] = $tmp;
-						}
-						$size = count($outcomes);
-						// Самописный Distinct по атрибуту Category
-						for ($i = 0; $i < $size; $i++)
-						{
-							$num = 0;
-							for ($j = 0; $j < $size; $j++)
-							{
-								if (@$outcomes[$i][0] == @$outcomes[$j][0])
-								{
-									$num++;
-									if ($num > 1)
-									{
-										$outcomes[$i][1] += $outcomes[$j][1];
-										unset($outcomes[$j]);
-										$size--;
-									}
-								}
-							}
-						}
-						// Получаем проценты
-						$sum = 0;
-						foreach ($outcomes as $cat)
-						{
-							$sum += $cat[1];
-						}
-						for ($i = 0; $i < count($outcomes); $i++)
-						{
-							@$outcomes[$i][1] = round((@$outcomes[$i][1] / $sum) * 100, 1);
-						}
-						
-						$data['outcomes'] = '[';						
-						foreach ($outcomes as $cat)
-						{
-							$data['outcomes'] .= "['".@$cat[0]."', ".@$cat[1]."],";
-						}
-						$data['outcomes'] .= ']';
-						
-						// Периодические доходы
-						$Objects = $this->graphic_reports_model->getPeriodicIncomes($data['login']);
-						$incomes = array(); $maxPeriod = 0; $inLine = '[';
-						foreach($Objects as $obj)
-						{
-							$tmp['sum'] = $obj->summary;
-							$tmp['per'] = $obj->period;
-							if ($obj->period > $maxPeriod)
-							{
-								$maxPeriod = $obj->period;
-							}
-							$incomes[] = $tmp;
-						}
-						for ($i = 1; $i <= $maxPeriod; $i++)
-						{
-							$sum = 0;
-							foreach($incomes as $item)
-							{
-								if (($i % $item['per']) == 0)
-								{
-									$sum += $item['sum'];
-								}
-							}
-							$inLine .= $sum.',';
-						}
-						$data['incomeTiming'] = $inLine.']';
-						
-						// Периодические  расходы
+						$data['outcomes'] = $this->statistics->getPercentage($objects);
+
+						// Получим массивы с данными по периодическим доходам/расходам
+						$Objects = $this->graphic_reports_model->getPeriodicIncomes($data['login']);	
+						$arr1 = $this->statistics->fetchPeriodic($Objects);
 						$Objects = $this->graphic_reports_model->getPeriodicOutcomes($data['login']);
-						$outcomes = array(); $outLine = '[';
-						foreach($Objects as $obj)
-						{
-							$tmp['sum'] = $obj->summary;
-							$tmp['per'] = $obj->period;
-							if ($obj->period > $maxPeriod)
-							{
-								$maxPeriod = $obj->period;
-							}
-							$outcomes[] = $tmp;
-						}
-						for ($i = 1; $i <= $maxPeriod; $i++)
-						{
-							$sum = 0;
-							foreach($outcomes as $item)
-							{
-								if (($i % $item['per']) == 0)
-								{
-									$sum += $item['sum'];
-								}
-							}
-							$outLine .= $sum.',';
-						}
-						$data['outcomeTiming'] = $outLine.']';
+						$arr2 = $this->statistics->fetchPeriodic($Objects);
+						
+						// Найдем максимальный период платежа
+						$maxPeriod = $this->statistics->getMaxPeriod($arr1, $arr2);
+
+						// Получим json для графиков
+						$data['incomeTiming'] = $this->statistics->buildPeriodicJson($arr1, $maxPeriod);
+						$data['outcomeTiming'] = $this->statistics->buildPeriodicJson($arr2, $maxPeriod);
 						
 						$this->load->view('graphic_report_tpl', $data);
 					}
