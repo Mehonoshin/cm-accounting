@@ -61,7 +61,7 @@
                     $information = $this->input->post('information');
                     $this->load->model('acc_model');
                     $this->acc_model->add_income_data($this->session->userdata('login'), $date, $name, $category, $summary, $information);
-                    redirect("http://localhost/cm-accounting/index/pages/incomes");
+                    redirect("http://localhost/cm-accounting/pages/incomes");
                 }
 
                 /**
@@ -72,7 +72,7 @@
                 {
                     $this->load->model('acc_model');
                     $this->acc_model->del_income_data($this->session->userdata('login'), $id);
-                    redirect("http://localhost/cm-accounting/index/pages/incomes");
+                    redirect("http://localhost/cm-accounting/pages/incomes");
                 }
 
                 /**
@@ -122,7 +122,7 @@
                     $information = $this->input->post('information');
                     $this->load->model('acc_model');
                     $this->acc_model->add_outcome_data($this->session->userdata('login'), $date, $name, $category, $summary, $information);
-                    redirect("http://localhost/cm-accounting/index/pages/outcomes");
+                    redirect("http://localhost/cm-accounting/pages/outcomes");
                 }
 
                 /**
@@ -133,7 +133,7 @@
                 {
                     $this->load->model('acc_model');
                     $this->acc_model->del_outcome_data($this->session->userdata('login'), $id);
-                    redirect("http://localhost/cm-accounting/index/pages/outcomes");
+                    redirect("http://localhost/cm-accounting/pages/outcomes");
                 }
 
                 /**
@@ -182,7 +182,7 @@
                     $term = $this->input->post('term');
                     $this->load->model('acc_model');
                     $this->acc_model->add_periodic_income_data($this->session->userdata('login'), $date, $name, $summary, $period, $term);
-                    redirect("http://localhost/cm-accounting/index/pages/periodic_incomes");
+                    redirect("http://localhost/cm-accounting/pages/periodic_incomes");
                 }
 
                 /**
@@ -193,7 +193,7 @@
                 {
                     $this->load->model('acc_model');
                     $this->acc_model->del_periodic_income_data($this->session->userdata('login'), $id);
-                    redirect("http://localhost/cm-accounting/index/pages/periodic_incomes");
+                    redirect("http://localhost/cm-accounting/pages/periodic_incomes");
                 }
 
                 /**
@@ -242,7 +242,7 @@
                     $term = $this->input->post('term');
                     $this->load->model('acc_model');
                     $this->acc_model->add_periodic_outcome_data($this->session->userdata('login'), $date, $name, $summary, $period, $term);
-                    redirect("http://localhost/cm-accounting/index/pages/periodic_outcomes");
+                    redirect("http://localhost/cm-accounting/pages/periodic_outcomes");
                 }
 
                 /**
@@ -253,7 +253,7 @@
                 {
                     $this->load->model('acc_model');
                     $this->acc_model->del_periodic_outcome_data($this->session->userdata('login'), $id);
-                    redirect("http://localhost/cm-accounting/index/pages/periodic_outcomes");
+                    redirect("http://localhost/cm-accounting/pages/periodic_outcomes");
                 }
 
                 /**
