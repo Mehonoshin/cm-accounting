@@ -18,6 +18,15 @@ table#table_data {
 	background-color:#B34A00;
 	color:white;
 }
+.white {
+	color: #FFFFFF;
+}
+.green {
+	background: #E0F7DC;
+}
+.red {
+	background: #FCE6EB;
+}
 #table_main
 {
     background-image: url('http://localhost/cm-accounting/images/texture2.gif');

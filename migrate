@@ -1,0 +1,36 @@
+#!/usr/bin/php
+<?php
+
+	define('BASEPATH', '.');
+
+	require_once('application/config/database.php');
+	require_once('application/libraries/ArgParser.php');
+	
+	$parser = new ArgParser($argv);
+	$migration = $parser->getArgByName('--name');
+	
+	$mysql_bin_path = "mysql";
+	if ($parser->getArgByName('--mysql-path') != '')
+	{
+		$mysql_bin_path = $parser->getArgByName('--mysql-path');
+	}
+	
+	$dbhost = $db['default']['hostname'];
+	$dbuser = $db['default']['username'];
+	$dbpass = $db['default']['password'];
+	$dbname = $db['default']['database'];
+	
+	if (($argc == 3) && ($migration != ''))
+	{
+		echo "To confirm MySQL migration, ";
+		system($mysql_bin_path.' -u '.$dbuser.' -p '.$dbname.' < sql/'.$migration.'.sql');
+		echo "Migration to $migration complete \n";
+	}
+	else
+	{
+		echo "Command usage: ./migrate --name <migration_name> [--mysql-path <path-to-mysql-client>] \n";
+	}
+
+
+
+?>
